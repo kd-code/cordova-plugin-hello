@@ -14,6 +14,7 @@ public class PrayertTimesNotification extends CordovaPlugin {
         {
             Toast toast = Toast.makeText(this.cordova.getActivity().getApplicationContext(),"here is the data", Toast.LENGTH_LONG);
             toast.show();
+            return true;
         }
         else
         {
