@@ -12,7 +12,7 @@ public class PrayertTimesNotification extends CordovaPlugin {
 
         if (action.equals("init"))
         {
-            Toast toast = Toast.makeText(callbackContext,"here is the data:"+data.getString(0), Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(callbackContext,"here is the data", Toast.LENGTH_LONG);
             toast.show();
         }
         else
