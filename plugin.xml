@@ -6,7 +6,7 @@
   <name>PrayertTimesNotification</name>
 
   <engines>
-    <engine name="cordova" version=">=3.4.0"/>
+    <engine name="cordova" version=">=2.9.0"/>
   </engines>
 
   <asset src="www/payer_times_notification.js" target="js/payer_times_notification.js"/>
