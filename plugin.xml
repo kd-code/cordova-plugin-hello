@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
-        id="com.smgroup.PrayertTimesNotification"
+        id="com.smgroup.PrayerTimesNotification"
         version="0.7.0">
 
-  <name>PrayertTimesNotification</name>
+  <name>PrayerTimesNotification</name>
 
   <engines>
     <engine name="cordova" version=">=2.9.0"/>
@@ -11,18 +11,18 @@
 
   <asset src="www/payer_times_notification.js" target="js/payer_times_notification.js"/>
 
-  <js-module src="www/payer_times_notification.js" name="PrayertTimesNotification">
-    <clobbers target="PrayertTimesNotification" />
+  <js-module src="www/payer_times_notification.js" name="PrayerTimesNotification">
+    <clobbers target="PrayerTimesNotification" />
   </js-module>
 
   <platform name="android">
 
     <config-file target="res/xml/config.xml" parent="/*">
-      <feature name="PrayertTimesNotification">
-        <param name="android-package" value="com.smgroup.PrayertTimesNotification"/>
+      <feature name="PrayerTimesNotification">
+        <param name="android-package" value="com.smgroup.PrayerTimesNotification"/>
       </feature>
     </config-file>
 
-    <source-file src="src/android/PrayertTimesNotification.java" target-dir="src/com/smgroup/PrayertTimesNotification/"/>
+    <source-file src="src/android/PrayerTimesNotification.java" target-dir="src/com/smgroup/PrayerTimesNotification/"/>
   </platform>
 </plugin>
