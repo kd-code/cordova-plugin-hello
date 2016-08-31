@@ -1,4 +1,4 @@
-package com.example.plugin;
+package com.smgroup.PrayertTimesNotification;
 
 import org.apache.cordova.*;
 import org.json.JSONArray;
