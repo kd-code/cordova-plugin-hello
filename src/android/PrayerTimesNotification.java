@@ -5,7 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import android.widget.Toast;
 
-public class PrayertTimesNotification extends CordovaPlugin {
+public class PrayerTimesNotification extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {

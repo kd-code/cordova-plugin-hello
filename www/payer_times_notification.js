@@ -2,6 +2,6 @@
 
 module.exports = {
     init: function (input_json, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "PrayertTimesNotification", "init", [input_json]);
+        cordova.exec(successCallback, errorCallback, "PrayerTimesNotification", "init", [input_json]);
     }
 };
