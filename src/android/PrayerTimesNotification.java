@@ -1,8 +1,8 @@
 package com.smgroup;
 
 import org.apache.cordova.*;
-import org.apache.cordova.api.CallbackContext;
-import org.apache.cordova.api.CordovaPlugin;
+//import org.apache.cordova.api.CallbackContext;
+//import org.apache.cordova.api.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 import android.widget.Toast;
