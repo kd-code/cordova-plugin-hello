@@ -1,8 +1,11 @@
 package com.smgroup;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
+import java.util.Locale;
+
 import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,20 +18,20 @@ import android.widget.Toast;
 
 public class PrayerTimesNotification extends CordovaPlugin {
 
-	private static String TAG = "==kdcode==";
-	@Override
+    private static String TAG = "==kdcode==";
+    @Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 
-		Log.d(TAG, "=========Entered execute=======");
-		if (action.equals("init"))
+        Log.d(TAG, "=========Entered execute=======");
+        if (action.equals("init"))
         {
             
-			Log.d(TAG, "=========INTO THE IF=======");
-			//save input to shared perfrences
-        	SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
-        	prefs.edit().putString("input_json", data.getString(0));
-        	prefs.edit().commit();
-        	init(data.getString(0),this.cordova.getActivity().getApplicationContext());
+            Log.d(TAG, "=========INTO THE IF=======");
+            //save input to shared perfrences
+            SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
+            prefs.edit().putString("input_json", data.getString(0));
+            prefs.edit().commit();
+            init(data.getString(0),this.cordova.getActivity().getApplicationContext());
             return true;
         }
         else
@@ -38,59 +41,75 @@ public class PrayerTimesNotification extends CordovaPlugin {
     }
     public static void init(String input,Context ctx) throws JSONException
     {
-    	//clear previous notifications
+        //clear previous notifications
     
-    	
-    	//read data from shared prefs
-    	JSONObject reader = new JSONObject(input);
-    	double lat = reader.getDouble("lat");
-    	double lng = reader.getDouble("lng");
-    	double timezone = reader.getDouble("timezone");
-    	String method = reader.getString("method");
-    	
-    	PrayTime prayers= new PrayTime();
-    	prayers.setTimeFormat(prayers.Time24);
-    	prayers.setCalcMethod(calcMethodStringToInt(method));
-    	prayers.setAsrJuristic(prayers.Shafii);
-    	prayers.setAdjustHighLats(prayers.AngleBased);
-    	
-    	Date now = new Date();
+        
+        //read data from shared prefs
+        JSONObject reader = new JSONObject(input);
+        double lat = reader.getDouble("lat");
+        double lng = reader.getDouble("lng");
+        double timezone = reader.getDouble("timezone");
+        String method = reader.getString("method");
+        
+        PrayTime prayers= new PrayTime();
+        prayers.setTimeFormat(prayers.Time24);
+        prayers.setCalcMethod(calcMethodStringToInt(method));
+        prayers.setAsrJuristic(prayers.Shafii);
+        prayers.setAdjustHighLats(prayers.AngleBased);
+        
+        Date now = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(now);
         
-    	
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm",Locale.US);
+        String str = sdf.format(new Date());
+        
+        int now_hour = Integer.valueOf(str.split(":")[0]);
+        int now_min = Integer.valueOf(str.split(":")[1]);
+        
+        
         ArrayList<String> prayerTimes = prayers.getPrayerTimes(cal,
                 lat, lng, timezone);
         ArrayList<String> prayerNames = prayers.getTimeNames();
-    	
+        
         for (int i = 0; i < prayerTimes.size(); i++)
         {
-            Log.d(TAG,prayerNames.get(i) + " - " + prayerTimes.get(i));
+            String time = prayerTimes.get(i);
+            int hour = Integer.valueOf(time.split(":")[0]);
+            int min = Integer.valueOf(time.split(":")[1]);
+            
+            String passed = "";
+            if(hour>now_hour || (hour==now_hour && min>now_min))//if pray time is not passed
+            {
+                passed = "passed";
+            }
+            Log.d(TAG,prayerNames.get(i) + " - " + prayerTimes.get(i) + " - " + passed);
         }
-		
-    	Toast toast = Toast.makeText(ctx,reader.getString("text"), Toast.LENGTH_LONG);
+        
+        Toast toast = Toast.makeText(ctx,reader.getString("text"), Toast.LENGTH_LONG);
         toast.show();
-    	//set notification for the next 48 hours
+        //set notification for the next 48 hours
     }
     private static int calcMethodStringToInt(String calc_method)
     {
-    	calc_method = calc_method.toLowerCase();
-    	PrayTime pr = new PrayTime();
-    	if(calc_method=="jafari")
-    		return pr.Jafari;
-    	if(calc_method=="karachi")
-    		return pr.Karachi;
-    	if(calc_method=="isna")
-    		return pr.ISNA;
-    	if(calc_method=="mwl")
-    		return pr.MWL;
-    	if(calc_method=="makkah")
-    		return pr.Makkah;
-    	if(calc_method=="egypt")
-    		return pr.Egypt;
-    	if(calc_method=="tehran")
-    		return pr.Tehran;
-    	return pr.Tehran;
+        calc_method = calc_method.toLowerCase();
+        PrayTime pr = new PrayTime();
+        if(calc_method=="jafari")
+            return pr.Jafari;
+        if(calc_method=="karachi")
+            return pr.Karachi;
+        if(calc_method=="isna")
+            return pr.ISNA;
+        if(calc_method=="mwl")
+            return pr.MWL;
+        if(calc_method=="makkah")
+            return pr.Makkah;
+        if(calc_method=="egypt")
+            return pr.Egypt;
+        if(calc_method=="tehran")
+            return pr.Tehran;
+        return pr.Tehran;
     }
     /*todo
      * parse json and fill the data in the shared prefs
