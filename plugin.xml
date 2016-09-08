@@ -24,5 +24,6 @@
     </config-file>
 
     <source-file src="src/android/PrayerTimesNotification.java" target-dir="src/com/smgroup/PrayerTimesNotification/"/>
+    <source-file src="src/android/PrayTime.java" target-dir="src/com/smgroup/PrayerTimesNotification/"/>
   </platform>
 </plugin>
