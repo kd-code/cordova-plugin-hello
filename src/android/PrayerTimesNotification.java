@@ -51,7 +51,7 @@ public class PrayerTimesNotification extends CordovaPlugin {
     	{
     		SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
     		input = prefs.getString("input_json", "");//second arg is the default value
-    		Log.d(TAG, input);
+    		Log.d(TAG, "input is [" +  input+"]");
     		JSONObject reader = new JSONObject(input);
         	Toast toast = Toast.makeText(this.cordova.getActivity().getApplicationContext(),reader.getString("text"), Toast.LENGTH_LONG);
             toast.show();
