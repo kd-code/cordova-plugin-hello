@@ -46,15 +46,20 @@ public class PrayerTimesNotification extends CordovaPlugin {
     	
     	//read data from shared prefs
     	Log.d(TAG, "=========Entered Init=======");
-    	
-    	SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
-    	String input = prefs.getString("input_json", "");//second arg is the default value
-    	
-    	Log.d(TAG, input);
-    	
-    	JSONObject reader = new JSONObject(input);
-    	Toast toast = Toast.makeText(this.cordova.getActivity().getApplicationContext(),reader.getString("text"), Toast.LENGTH_LONG);
-        toast.show();
+    	String input;
+    	try
+    	{
+    		SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
+    		input = prefs.getString("input_json", "");//second arg is the default value
+    		Log.d(TAG, input);
+    		JSONObject reader = new JSONObject(input);
+        	Toast toast = Toast.makeText(this.cordova.getActivity().getApplicationContext(),reader.getString("text"), Toast.LENGTH_LONG);
+            toast.show();
+    	}
+    	catch(Exception ex)
+    	{
+    		Log.d(TAG,ex.getLocalizedMessage());
+    	}
     	//set notification for the next 48 hours
     }
     /*todo
