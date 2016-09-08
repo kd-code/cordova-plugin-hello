@@ -26,7 +26,7 @@ public class PrayerTimesNotification extends CordovaPlugin {
         	prefs.edit().putString("input_json", data.getString(0));
         	prefs.edit().commit();
         	
-        	init();
+        	init(data.getString(0),this.cordova.getActivity().getApplicationContext());
         	
         	/*JSONObject reader = new JSONObject(data.getString(0));
         	
@@ -39,27 +39,18 @@ public class PrayerTimesNotification extends CordovaPlugin {
             return false;
         }
     }
-    private void init() throws JSONException
+    public static void init(String input,Context ctx) throws JSONException
     {
     	//clear previous notifications
     	
     	
     	//read data from shared prefs
-    	Log.d(TAG, "=========Entered Init=======");
-    	String input;
-    	try
-    	{
-    		SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
-    		input = prefs.getString("input_json", "");//second arg is the default value
-    		Log.d(TAG, "input is [" +  input+"]");
-    		JSONObject reader = new JSONObject(input);
-        	Toast toast = Toast.makeText(this.cordova.getActivity().getApplicationContext(),reader.getString("text"), Toast.LENGTH_LONG);
-            toast.show();
-    	}
-    	catch(Exception ex)
-    	{
-    		Log.d(TAG,ex.getLocalizedMessage());
-    	}
+		//SharedPreferences prefs = ctx.getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
+		//input = prefs.getString("input_json", "");//second arg is the default value
+		//Log.d(TAG, "input is [" +  input+"]");
+		JSONObject reader = new JSONObject(input);
+    	Toast toast = Toast.makeText(ctx,reader.getString("text"), Toast.LENGTH_LONG);
+        toast.show();
     	//set notification for the next 48 hours
     }
     /*todo
