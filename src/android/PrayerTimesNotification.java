@@ -16,10 +16,12 @@ public class PrayerTimesNotification extends CordovaPlugin {
 	@Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 
-        if (action.equals("init"))
+		Log.d(TAG, "=========Entered execute=======");
+		if (action.equals("init"))
         {
             
-        	//save input to shared perfrences
+			Log.d(TAG, "=========INTO THE IF=======");
+			//save input to shared perfrences
         	SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
         	prefs.edit().putString("input_json", data.getString(0));
         	prefs.edit().apply();
