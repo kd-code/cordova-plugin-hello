@@ -24,7 +24,7 @@ public class PrayerTimesNotification extends CordovaPlugin {
 			//save input to shared perfrences
         	SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
         	prefs.edit().putString("input_json", data.getString(0));
-        	prefs.edit().apply();
+        	prefs.edit().commit();
         	
         	init();
         	
