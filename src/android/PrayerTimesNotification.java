@@ -7,11 +7,13 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 public class PrayerTimesNotification extends CordovaPlugin {
 
-    @Override
+	private static String TAG = "==kdcode==";
+	@Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 
         if (action.equals("init"))
@@ -41,8 +43,12 @@ public class PrayerTimesNotification extends CordovaPlugin {
     	
     	
     	//read data from shared prefs
+    	Log.d(TAG, "=========Entered Init=======");
+    	
     	SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
     	String input = prefs.getString("input_json", "");//second arg is the default value
+    	
+    	Log.d(TAG, input);
     	
     	JSONObject reader = new JSONObject(input);
     	Toast toast = Toast.makeText(this.cordova.getActivity().getApplicationContext(),reader.getString("text"), Toast.LENGTH_LONG);
