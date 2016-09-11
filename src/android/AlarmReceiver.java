@@ -2,6 +2,8 @@ package com.smgroup;
 
 import java.io.IOException;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +28,14 @@ public class AlarmReceiver extends BroadcastReceiver
     	Log.d(PrayerTimesNotification.TAG,data);
     	Log.d(PrayerTimesNotification.TAG,"time is: " + intent.getExtras().getString("time_name"));
     	
+    	NotificationManager manager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+    	NotificationCompat.Builder b = new NotificationCompat.Builder(context);
+    	b.setDefaults(Notification.DEFAULT_ALL).setWhen(System.currentTimeMillis());
+    	int nid = 123456789;
+    	Notification note = b.build();
+    	note.sound = Uri.parse("file:///android_asset/www/sound.mp3");
+    	manager.notify(nid, note);
+    	/*
     	AssetFileDescriptor desc;
 		try {
 			desc = context.getApplicationContext().getAssets().openFd("www/sound.mp3");
@@ -39,7 +49,7 @@ public class AlarmReceiver extends BroadcastReceiver
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-    	//NotificationCompat.Builder b = new NotificationCompat.Builder(context);
+		}*/
+    	
 	}  
 }
