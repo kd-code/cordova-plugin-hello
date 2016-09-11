@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,9 +34,11 @@ public class PrayerTimesNotification extends CordovaPlugin {
             
 			Log.d(TAG, "=========INTO THE IF=======");
 			//save input to shared perfrences
-        	SharedPreferences prefs = this.cordova.getActivity().getApplicationContext().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
-        	prefs.edit().putString("azan_plugin_input_json", data.getString(0));
-        	prefs.edit().commit();
+        	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.cordova.getActivity().getApplicationContext());
+        	SharedPreferences.Editor editor = prefs.edit();
+        	Log.d(TAG,data.getString(0));
+        	editor.putString("azan_plugin_input_json", data.getString(0));
+        	editor.commit();
         	init(data.getString(0),this.cordova.getActivity().getApplicationContext());
             return true;
         }
