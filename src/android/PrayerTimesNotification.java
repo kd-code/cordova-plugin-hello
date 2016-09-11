@@ -89,8 +89,8 @@ public class PrayerTimesNotification extends CordovaPlugin {
                 	long time_diff = ((hour-now_hour)*60 + min-now_min)*60*1000;//in millis
                 	SetAlarmFor(ctx,prayerNames.get(i),System.currentTimeMillis()+time_diff,i);	
                 }
-            	Log.d(TAG,prayerNames.get(i) + " - " + prayerTimes.get(i));
             }
+            Log.d(TAG,prayerNames.get(i) + " - " + prayerTimes.get(i));
         }
         //set for tommorow
         cal.add(Calendar.DATE, 1);//add 1 day
