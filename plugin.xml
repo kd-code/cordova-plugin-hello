@@ -19,11 +19,16 @@
 
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="PrayerTimesNotification">
-        <param name="android-package" value="com.smgroup.PrayerTimesNotification"/>
+        <param name="android-package" value="com.smgroup"/>
       </feature>
     </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <receiver android:name="com.smgroup.AlarmReceiver" android:exported="false" />
+    </config-file>
 
-    <source-file src="src/android/PrayerTimesNotification.java" target-dir="src/com/smgroup/PrayerTimesNotification/"/>
-    <source-file src="src/android/PrayTime.java" target-dir="src/com/smgroup/PrayerTimesNotification/"/>
+
+    <source-file src="src/android/PrayerTimesNotification.java" target-dir="src/com/smgroup/"/>
+    <source-file src="src/android/PrayTime.java" target-dir="src/com/smgroup/"/>
+    <source-file src="src/android/AlarmReceiver.java" target-dir="src/com/smgroup/"/>
   </platform>
 </plugin>
