@@ -145,12 +145,17 @@ public class PrayerTimesNotification extends CordovaPlugin {
     }
     private static void SetAlarmFor(Context ctx,String timeName,long time,int requestCode)
     {
+    	//REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS 
+    	if(requestCode>100)//REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS
+    		return;//REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS
+    	//REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS REMOVE THIS
+    	
     	//cancel previous alarms is done implicitly when scheduling a pendingIntent with same intent and requestCode
     	Intent alarm_intent = new Intent(ctx,AlarmReceiver.class);
     	alarm_intent.putExtra("time_name", timeName);
     	AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
     	//alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(ctx, requestCode, alarm_intent, 0));
-    	alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+requestCode * 2000, PendingIntent.getBroadcast(ctx, requestCode, alarm_intent, 0));
+    	alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, PendingIntent.getBroadcast(ctx, requestCode, alarm_intent, 0));
     }
     /*todo
      * parse json and fill the data in the shared prefs
