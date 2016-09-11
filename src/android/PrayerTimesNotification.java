@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 public class PrayerTimesNotification extends CordovaPlugin {
 
-	private static String TAG = "==kdcode==";
+	public static String TAG = "==kdcode==";
 	@Override
     public boolean execute(String action, JSONArray data, CallbackContext callbackContext) throws JSONException {
 
@@ -33,8 +33,8 @@ public class PrayerTimesNotification extends CordovaPlugin {
             
 			Log.d(TAG, "=========INTO THE IF=======");
 			//save input to shared perfrences
-        	SharedPreferences prefs = this.cordova.getActivity().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
-        	prefs.edit().putString("input_json", data.getString(0));
+        	SharedPreferences prefs = this.cordova.getActivity().getApplicationContext().getSharedPreferences("azanplugin", Context.MODE_PRIVATE);
+        	prefs.edit().putString("azan_plugin_input_json", data.getString(0));
         	prefs.edit().commit();
         	init(data.getString(0),this.cordova.getActivity().getApplicationContext());
             return true;
@@ -47,6 +47,7 @@ public class PrayerTimesNotification extends CordovaPlugin {
     public static void init(String input,Context ctx) throws JSONException
     {
     	//read data 
+    	cancelAll(ctx);
     	JSONObject reader = new JSONObject(input);
     	double lat = reader.getDouble("lat");
     	double lng = reader.getDouble("lng");
@@ -108,6 +109,20 @@ public class PrayerTimesNotification extends CordovaPlugin {
             }
         }
     }
+    private static void cancelAll(Context ctx)
+    {
+    	for(int i=0;i<10;i++)
+    	{
+	    	Intent alarm_intent = new Intent(ctx,AlarmReceiver.class);
+	    	AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+	    	PendingIntent pi = PendingIntent.getBroadcast(ctx, i, alarm_intent, 0);
+	    	PendingIntent pi_tomorrow = PendingIntent.getBroadcast(ctx, 100+ i, alarm_intent, 0);
+	    	alarmManager.cancel(pi);
+	    	alarmManager.cancel(pi_tomorrow);
+	    	pi.cancel();
+	    	pi_tomorrow.cancel();
+    	}
+    }
     private static int calcMethodStringToInt(String calc_method)
     {
     	calc_method = calc_method.toLowerCase();
@@ -134,7 +149,8 @@ public class PrayerTimesNotification extends CordovaPlugin {
     	Intent alarm_intent = new Intent(ctx,AlarmReceiver.class);
     	alarm_intent.putExtra("time_name", timeName);
     	AlarmManager alarmManager = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-    	alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(ctx, requestCode, alarm_intent, 0));
+    	//alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(ctx, requestCode, alarm_intent, 0));
+    	alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+requestCode * 2000, PendingIntent.getBroadcast(ctx, requestCode, alarm_intent, 0));
     }
     /*todo
      * parse json and fill the data in the shared prefs
