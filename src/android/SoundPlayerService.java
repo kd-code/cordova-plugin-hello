@@ -21,7 +21,7 @@ public class SoundPlayerService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		if(intent.getAction() == "play")
+		if(intent.getExtras().getString("do")=="play" && mp.isPlaying()==false)
 		{
 			AssetFileDescriptor desc;
 			try {
@@ -45,7 +45,7 @@ public class SoundPlayerService extends Service
 				e.printStackTrace();
 			}	
 		}
-		else
+		if(intent.getExtras().getString("do")=="stop" && mp.isPlaying())
 		{
 			mp.stop();
 		}

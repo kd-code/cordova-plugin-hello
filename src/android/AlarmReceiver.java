@@ -25,12 +25,12 @@ public class AlarmReceiver extends BroadcastReceiver
     	Log.d(PrayerTimesNotification.TAG,"time is: " + intent.getExtras().getString("time_name"));
     	
     	Intent play_intent = new Intent(context.getApplicationContext(), SoundPlayerService.class);
-    	play_intent.setAction("play");
+    	play_intent.putExtra("do", "play");
     	context.getApplicationContext().startService(play_intent);
     	
     	
     	Intent i = new Intent(context.getApplicationContext(), SoundPlayerService.class);
-    	i.setAction("stop");
+    	i.putExtra("do", "stop");
 		PendingIntent contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, i, 0);
 		NotificationCompat.Builder b = new NotificationCompat.Builder(context.getApplicationContext());
 
