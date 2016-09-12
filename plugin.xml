@@ -24,11 +24,17 @@
     </config-file>
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
       <receiver android:name="com.smgroup.AlarmReceiver" android:exported="false" />
+      <service android:enabled="true" android:name="com.smgroup.SoundPlayerService" />
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.WAKE_LOCK" />
+      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     </config-file>
 
 
     <source-file src="src/android/PrayerTimesNotification.java" target-dir="src/com/smgroup/"/>
     <source-file src="src/android/PrayTime.java" target-dir="src/com/smgroup/"/>
     <source-file src="src/android/AlarmReceiver.java" target-dir="src/com/smgroup/"/>
+    <source-file src="src/android/SoundPlayerService.java" target-dir="src/com/smgroup/"/>
   </platform>
 </plugin>
