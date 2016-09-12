@@ -21,28 +21,35 @@ public class SoundPlayerService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		
-    	AssetFileDescriptor desc;
-		try {
-			desc = this.getApplicationContext().getAssets().openFd("www/sound.mp3");
-	    	mp.setDataSource(desc.getFileDescriptor(),desc.getStartOffset(),desc.getLength());
-	    	mp.prepare();
-	    	mp.setLooping(false);
-	    	mp.start();
-	    	mp.setOnCompletionListener(new OnCompletionListener()
-	    	{
-	            @Override
-	            public void onCompletion(MediaPlayer mp)
-	            {
-	                stopSelf();
-	            }
-	            });
-		}	
-		catch (IOException e)
+		if(intent.getAction() == "play")
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			AssetFileDescriptor desc;
+			try {
+				desc = this.getApplicationContext().getAssets().openFd("www/sound.mp3");
+		    	mp.setDataSource(desc.getFileDescriptor(),desc.getStartOffset(),desc.getLength());
+		    	mp.prepare();
+		    	mp.setLooping(false);
+		    	mp.start();
+		    	mp.setOnCompletionListener(new OnCompletionListener()
+		    	{
+		            @Override
+		            public void onCompletion(MediaPlayer mp)
+		            {
+		                stopSelf();
+		            }
+		            });
+			}	
+			catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
+		else
+		{
+			mp.stop();
+		}
+    	
 		return START_NOT_STICKY;
 	}
 }
