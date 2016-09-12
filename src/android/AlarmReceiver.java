@@ -35,7 +35,7 @@ public class AlarmReceiver extends BroadcastReceiver
 		NotificationCompat.Builder b = new NotificationCompat.Builder(context.getApplicationContext());
 
 		b.setAutoCancel(true)
-				.setDefaults(Notification.DEFAULT_ALL)
+				.setDefaults(Notification.DEFAULT_LIGHTS)
 				.setWhen(System.currentTimeMillis())
 				.setSmallIcon(context.getApplicationContext().getResources().getIdentifier("icon", "drawable", context.getApplicationContext().getPackageName()))
 				.setContentTitle("title")
@@ -44,6 +44,7 @@ public class AlarmReceiver extends BroadcastReceiver
 				.setContentIntent(contentIntent)
 				.setDeleteIntent(contentIntent)
 				.setContentInfo("Info");
+				
 		
 		NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.notify(1, b.build());

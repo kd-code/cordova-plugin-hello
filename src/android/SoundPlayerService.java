@@ -50,6 +50,7 @@ public class SoundPlayerService extends Service
 		if(intent.getExtras().getString("do").equals("stop") && mp.isPlaying())
 		{
 			mp.stop();
+			stopSelf();
 		}
     	
 		return START_NOT_STICKY;
