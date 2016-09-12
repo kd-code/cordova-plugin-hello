@@ -31,7 +31,7 @@ public class AlarmReceiver extends BroadcastReceiver
     	
     	Intent i = new Intent(context.getApplicationContext(), SoundPlayerService.class);
     	i.putExtra("do", "stop");
-		PendingIntent contentIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, i, 0);
+		PendingIntent contentIntent = PendingIntent.getService(context.getApplicationContext(), 0, i, 0);
 		NotificationCompat.Builder b = new NotificationCompat.Builder(context.getApplicationContext());
 
 		b.setAutoCancel(true)
