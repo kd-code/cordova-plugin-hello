@@ -8,6 +8,8 @@ import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.IBinder;
+import android.util.Log;
+import android.widget.Toast;
 
 public class SoundPlayerService extends Service
 {
@@ -21,6 +23,7 @@ public class SoundPlayerService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
+		Toast.makeText(this.getApplicationContext(), "service started with do="+intent.getExtras().getString("do"), Toast.LENGTH_LONG).show();
 		if(intent.getExtras().getString("do")=="play" && mp.isPlaying()==false)
 		{
 			AssetFileDescriptor desc;
