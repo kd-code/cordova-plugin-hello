@@ -24,6 +24,11 @@
     </config-file>
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
       <receiver android:name="com.smgroup.AlarmReceiver" android:exported="false" />
+      <receiver android:name="com.smgroup.BootReceiver" android:exported="false">
+        <intent-filter>
+          <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        </intent-filter>
+      </receiver>
       <service android:enabled="true" android:name="com.smgroup.SoundPlayerService" />
     </config-file>
     <config-file target="AndroidManifest.xml" parent="/manifest">
@@ -35,6 +40,7 @@
     <source-file src="src/android/PrayerTimesNotification.java" target-dir="src/com/smgroup/"/>
     <source-file src="src/android/PrayTime.java" target-dir="src/com/smgroup/"/>
     <source-file src="src/android/AlarmReceiver.java" target-dir="src/com/smgroup/"/>
+    <source-file src="src/android/BootReceiver.java" target-dir="src/com/smgroup/"/>
     <source-file src="src/android/SoundPlayerService.java" target-dir="src/com/smgroup/"/>
   </platform>
 </plugin>
