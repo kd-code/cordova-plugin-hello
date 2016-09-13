@@ -47,6 +47,7 @@ public class AlarmReceiver extends BroadcastReceiver
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+			Log.d(PrayerTimesNotification.TAG,e.getLocalizedMessage());
 		}
 		
     			
