@@ -27,7 +27,7 @@ public class SoundPlayerService extends Service
 		{
 			AssetFileDescriptor desc;
 			try {
-				desc = this.getApplicationContext().getAssets().openFd("www/sound.mp3");
+				desc = this.getApplicationContext().getAssets().openFd("www/"+intent.getExtras().getString("sound"));
 		    	mp.setDataSource(desc.getFileDescriptor(),desc.getStartOffset(),desc.getLength());
 		    	mp.prepare();
 		    	mp.setLooping(false);

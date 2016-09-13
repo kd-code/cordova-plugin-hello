@@ -1,5 +1,8 @@
 package com.smgroup;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -19,13 +22,44 @@ public class AlarmReceiver extends BroadcastReceiver
 	{  
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 		String data = prefs.getString("azan_plugin_input_json", "NO_VAL");
+		String title = "";
+		String sound = "";
+		String time_name = intent.getExtras().getString("time_name");
+		try
+		{
+			JSONObject reader = new JSONObject(data);
+			if(reader.has(time_name))
+			{
+				title = reader.getJSONObject(time_name).getString("text");
+				sound = reader.getJSONObject(time_name).getString("mp3");
+			}
+			else if(reader.has(time_name.toLowerCase()))
+			{
+				title = reader.getJSONObject(time_name.toLowerCase()).getString("text");
+				sound = reader.getJSONObject(time_name.toLowerCase()).getString("mp3");
+			}
+			else
+			{
+				return;//nothign to do
+			}
+			
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		
+    			
 		Toast.makeText(context, "recieved", Toast.LENGTH_LONG).show();
 		Log.d(PrayerTimesNotification.TAG,"recieved");
     	Log.d(PrayerTimesNotification.TAG,data);
     	Log.d(PrayerTimesNotification.TAG,"time is: " + intent.getExtras().getString("time_name"));
     	
+    	
+    	
     	Intent play_intent = new Intent(context.getApplicationContext(), SoundPlayerService.class);
     	play_intent.putExtra("do", "play");
+    	play_intent.putExtra("sound", sound);
     	context.getApplicationContext().startService(play_intent);
     	
     	
@@ -38,8 +72,8 @@ public class AlarmReceiver extends BroadcastReceiver
 				.setDefaults(Notification.DEFAULT_LIGHTS)
 				.setWhen(System.currentTimeMillis())
 				.setSmallIcon(context.getApplicationContext().getResources().getIdentifier("icon", "drawable", context.getApplicationContext().getPackageName()))
-				.setContentTitle("title")
-				.setContentText("text")
+				.setContentTitle(title)
+				.setContentText("")
 				.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
 				.setContentIntent(contentIntent)
 				.setDeleteIntent(contentIntent)
