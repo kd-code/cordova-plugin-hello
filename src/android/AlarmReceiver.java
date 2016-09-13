@@ -50,7 +50,7 @@ public class AlarmReceiver extends BroadcastReceiver
 		}
 		
     			
-		Toast.makeText(context, "recieved", Toast.LENGTH_LONG).show();
+		Toast.makeText(context, "recieved title="+title +" and sound ="+sound , Toast.LENGTH_LONG).show();
 		Log.d(PrayerTimesNotification.TAG,"recieved");
     	Log.d(PrayerTimesNotification.TAG,data);
     	Log.d(PrayerTimesNotification.TAG,"time is: " + intent.getExtras().getString("time_name"));
@@ -76,8 +76,8 @@ public class AlarmReceiver extends BroadcastReceiver
 				.setContentText("")
 				.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
 				.setContentIntent(contentIntent)
-				.setDeleteIntent(contentIntent)
-				.setContentInfo("Info");
+				.setDeleteIntent(contentIntent);
+				
 				
 		
 		NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
