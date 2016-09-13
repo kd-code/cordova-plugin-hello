@@ -22,7 +22,7 @@ public class SoundPlayerService extends Service
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId)
 	{
-		Toast.makeText(this.getApplicationContext(), "service started with do="+intent.getExtras().getString("do"), Toast.LENGTH_LONG).show();
+		//Toast.makeText(this.getApplicationContext(), "service started with do="+intent.getExtras().getString("do"), Toast.LENGTH_LONG).show();
 		if(intent.getExtras().getString("do").equals("play") && mp.isPlaying()==false)
 		{
 			AssetFileDescriptor desc;

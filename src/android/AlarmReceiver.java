@@ -10,6 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -22,6 +23,14 @@ public class AlarmReceiver extends BroadcastReceiver
 	{  
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 		String data = prefs.getString("azan_plugin_input_json", "NO_VAL");
+		try
+		{
+			PrayerTimesNotification.init(data, context.getApplicationContext());
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
 		String title = "";
 		String sound = "";
 		String time_name = intent.getExtras().getString("time_name");
@@ -51,7 +60,7 @@ public class AlarmReceiver extends BroadcastReceiver
 		}
 		
     			
-		Toast.makeText(context, "recieved title="+title +" and sound ="+sound , Toast.LENGTH_LONG).show();
+		//Toast.makeText(context, "recieved title="+title +" and sound ="+sound , Toast.LENGTH_LONG).show();
 		Log.d(PrayerTimesNotification.TAG,"recieved");
     	Log.d(PrayerTimesNotification.TAG,data);
     	Log.d(PrayerTimesNotification.TAG,"time is: " + intent.getExtras().getString("time_name"));
@@ -78,10 +87,8 @@ public class AlarmReceiver extends BroadcastReceiver
 				.setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
 				.setContentIntent(contentIntent)
 				.setDeleteIntent(contentIntent);
-				
-				
-		
 		NotificationManager notificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+		
 		notificationManager.notify(1, b.build());
 	}  
 }

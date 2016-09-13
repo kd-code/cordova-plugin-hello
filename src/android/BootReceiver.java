@@ -14,10 +14,12 @@ public class BootReceiver extends BroadcastReceiver
 	{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 		String data = prefs.getString("azan_plugin_input_json", "NO_VAL");
-		try {
+		try
+		{
 			PrayerTimesNotification.init(data, context.getApplicationContext());
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (JSONException e)
+		{
 			e.printStackTrace();
 		}
     }
